@@ -1,0 +1,40 @@
+{
+  "captured_at": "2026-11-17T17:06:44.813Z",
+  "duration_seconds": 90,
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "provenance": "Actual browser recording of retained real LLM/public-source runs; silent guided walkthrough",
+  "new_llm_runs_started": 0,
+  "scenes": [
+    {
+      "seconds": 0,
+      "title": "Recorded examples and local workbench"
+    },
+    {
+      "seconds": 8,
+      "title": "Asset investigation and three version outcomes"
+    },
+    {
+      "seconds": 22,
+      "title": "Exact cited field and original source"
+    },
+    {
+      "seconds": 38,
+      "title": "Injected timeout and model-selected recovery"
+    },
+    {
+      "seconds": 54,
+      "title": "Partial report and unknown information"
+    },
+    {
+      "seconds": 67,
+      "title": "Local reviewable action drafts"
+    },
+    {
+      "seconds": 78,
+      "title": "Fresh live investigation inputs; no run started"
+    }
+  ]
+}

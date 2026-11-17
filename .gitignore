@@ -21,3 +21,7 @@ test-results/
 *.log
 .DS_Store
 Thumbs.db
+node_modules/
+playwright-report/
+# Large generated video is published as a release asset, separately from source.
+/docs/demo.webm

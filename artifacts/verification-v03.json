@@ -1,0 +1,23 @@
+{
+  "version": "0.3.0",
+  "python_api_tests": {
+    "passed": 57,
+    "record": "tests/test-results.txt"
+  },
+  "node_presentation_tests": {
+    "passed": 8,
+    "record": "ui-tests/view-model.test.mjs"
+  },
+  "browser_tests": {
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0,
+    "record": "artifacts/browser-tests.json"
+  },
+  "automated_accessibility_scope": "Findings page at 1440/768/390 CSS px and mobile citation dialog; Chromium only",
+  "screenshots_visually_inspected": true,
+  "demo": "Actual silent 90-second browser walkthrough; no new LLM runs",
+  "pdf_writeup": "One A4 page, rendered and visually inspected",
+  "live_evaluation": "artifacts/evaluation-v03/summary.md",
+  "limits": "docs/verification-v03.md"
+}

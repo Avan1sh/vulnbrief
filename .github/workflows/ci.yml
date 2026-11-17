@@ -48,7 +48,9 @@ jobs:
           python -m pip check
           python scripts/audit_repository.py
       - name: Check frontend syntax
-        run: node --check src/vulnbrief/web/app.js
+        run: |
+          node --check src/vulnbrief/web/app.js
+          node --test ui-tests/view-model.test.mjs
       - name: Run unit and local API tests
         run: python -m pytest -q --junitxml=test-results/junit.xml
       - name: Build wheel
@@ -61,5 +63,44 @@ jobs:
           path: |
             test-results/junit.xml
             dist/*.whl
+          if-no-files-found: warn
+          retention-days: 14
+
+  browser:
+    name: Browser and accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GROQ_API_KEY: ''
+      LANGCHAIN_TRACING_V2: 'false'
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: ui-tests/package-lock.json
+      - name: Install Python package
+        run: python -m pip install -e .
+      - name: Install browser test tools
+        working-directory: ui-tests
+        run: npm ci --no-fund --no-audit
+      - name: Install isolated Chromium
+        working-directory: ui-tests
+        run: npx playwright install --with-deps chromium
+      - name: Test reviewer flow, layouts and accessibility
+        working-directory: ui-tests
+        run: npm test
+      - name: Upload browser check results
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: browser-checks
+          path: |
+            artifacts/browser-tests.json
+            ui-tests/test-results/
           if-no-files-found: warn
           retention-days: 14

@@ -9,7 +9,8 @@ import subprocess
 
 BASE = Path(__file__).resolve().parents[1]
 PRIVATE_PARTS = {'.venv', '.wheel-check', '.vulnbrief', '__pycache__',
-                 '.pytest_cache', 'build', 'dist', 'runs'}
+                 '.pytest_cache', 'build', 'dist', 'runs', 'node_modules',
+                 'test-results', 'playwright-report'}
 TOKEN_PATTERNS = (
     re.compile(rb'gsk_[A-Za-z0-9]{20,}'),
     re.compile(rb'gh[pousr]_[A-Za-z0-9]{30,}'),
