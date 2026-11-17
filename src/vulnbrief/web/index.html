@@ -1,36 +1,66 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VulnBrief · Analyst workbench</title><link rel="stylesheet" href="/style.css"></head>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17654f">
+  <title>VulnBrief · Analyst workbench</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/reviewer.css">
+</head>
 <body>
-<aside class="rail">
-  <a class="brand" href="#top"><span class="brand-mark">v<span>•</span></span><span>VulnBrief<small>ANALYST WORKBENCH</small></span></a>
+<a class="skip-link" href="#workspace">Skip to investigation</a>
+<aside class="rail" aria-label="Workspace navigation">
+  <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">v<span>•</span></span><span>VulnBrief<small>ANALYST WORKBENCH</small></span></a>
   <div class="rail-label">WORKSPACE</div>
-  <nav><a class="active" href="#top"><span>◈</span> Investigate</a><a href="#workspace"><span>▤</span> Evidence & findings</a><a href="#actions"><span>☑</span> Action drafts <b id="railTasks">0</b></a><a href="#changes"><span>⇄</span> Compare runs</a></nav>
-  <div class="rail-bottom"><span class="live-dot"></span> Runs on your computer<small>Public evidence. Local history.<br>Credentials stay on the server.</small><div class="version">ASSESSMENT EDITION <span>v0.2</span></div></div>
+  <nav aria-label="Main"><a class="active" href="#review"><span aria-hidden="true">◈</span> Start here</a><a href="#compose"><span aria-hidden="true">＋</span> Investigate</a><a href="#workspace"><span aria-hidden="true">▤</span> Evidence & findings</a><a href="#actions"><span aria-hidden="true">☑</span> Action drafts <b id="railTasks">0</b></a><a href="#changes"><span aria-hidden="true">⇄</span> Compare runs</a></nav>
+  <div class="rail-bottom"><span class="live-dot" aria-hidden="true"></span> Runs on your computer<small>Public evidence. Local history.<br>Credentials stay on the server.</small><div class="version">ASSESSMENT EDITION <span>v0.3</span></div></div>
 </aside>
 <main id="top">
-  <header><div class="breadcrumb">Workspace <span>/</span> Investigations</div><div class="header-right"><span class="pill" id="connection">Connecting</span><span class="avatar">AN</span></div></header>
-  <section class="intro"><div><div class="eyebrow">VULNERABILITY INTELLIGENCE, IN CONTEXT</div><h1>Evidence before action.</h1><p>Investigate live sources, check asset versions, and review what comes next.</p></div><div class="scope"><span class="scope-icon">◎</span><div>Focused by design<small>Up to 3 CVEs · PAN-OS version pilot</small></div></div></section>
-  <div class="stats"><div><span class="stat-label">SELECTED INVESTIGATION</span><strong id="statStatus">No run selected</strong><small id="statModel">Select a saved run or start a new one</small></div><div><span class="stat-label">ASSETS ASSESSED</span><strong id="statAssets">—</strong><small>Version evidence, not a network scan</small></div><div><span class="stat-label">KNOWN EXPLOITED</span><strong id="statKev">—</strong><small>CVEs present in retrieved KEV data</small></div><div><span class="stat-label">ACTION DRAFTS</span><strong id="statTasks">0</strong><small>Awaiting analyst review</small></div></div>
-  <div class="top-grid">
-    <section class="panel composer"><div class="section-heading"><h2>Start an investigation</h2><span class="subtle-tag">LLM + live tools</span></div>
-      <label for="goal">Investigation goal</label><textarea id="goal" rows="3">Review the CVEs in this inventory. Retrieve live CVE, KEV, EPSS and current vendor evidence, assess asset versions, and recommend conditional next actions with source-field citations.</textarea>
-      <div class="inventory-header"><label for="inventory">Asset inventory <span class="muted">optional · CSV or JSON</span></label><button class="link-button" id="example">Use fictional example ↗</button></div>
-      <label class="file-zone" for="file"><span>↑</span><div id="fileLabel">Choose an inventory file<small>Product, version, exposure and owner · up to 50 KB</small></div><input type="file" id="file" accept=".json,.csv"></label><p class="form-note">Inventory is included in requests to your selected LLM provider. Use fictional data for the assessment.</p>
-      <details id="inventoryDetails"><summary>View or edit inventory</summary><select id="format" aria-label="Inventory format"><option value="csv">CSV</option><option value="json">JSON</option></select><textarea id="inventory" rows="5" placeholder="Paste your inventory, or load the fictional example."></textarea></details>
-      <label for="model">Free API model</label><select id="model"><option value="openai/gpt-oss-120b">GPT-OSS 120B</option><option value="openai/gpt-oss-20b">GPT-OSS 20B · smaller alternative</option></select>
-      <div class="composer-footer"><label class="check"><input type="checkbox" id="fault"> Demonstrate one source timeout</label><button class="primary" id="start">Investigate <span>↗</span></button></div><p class="form-note">The agent chooses its steps. Live runs usually take a few minutes on a free API.</p><div id="notice" role="status"></div>
-    </section>
-    <section class="panel recent"><div class="section-heading"><h2>Recent investigations</h2><button class="link-button" id="refresh">Refresh ↻</button></div><p class="muted">Saved locally, with the original evidence and trace.</p><div id="runList" class="run-list"><div class="empty">Your investigations will appear here.</div></div></section>
-  </div>
-  <section class="panel investigation" id="workspace"><div class="section-heading"><div><span class="eyebrow">INVESTIGATION DETAIL</span><h2 id="runTitle">Choose a run to inspect</h2></div><div class="detail-buttons"><button class="secondary" id="rerun" disabled>Edit & re-run ↗</button><a class="secondary disabled" id="download" href="#">Download report ↓</a></div></div>
-    <p id="runMeta" class="muted">Plans, source evidence and recommendations stay linked to the same execution.</p>
-    <div class="tabs" role="tablist"><button class="selected" data-tab="findings">Findings</button><button data-tab="evidence">Source evidence <span id="evidenceCount">0</span></button><button data-tab="timeline">Execution timeline</button></div>
-    <div id="findings" class="tab-body"><div class="empty large">◈<h3>Your evidence, in one place.</h3><p>Select a saved investigation to inspect findings and asset applicability.</p></div></div>
-    <div id="evidence" class="tab-body hidden"></div><div id="timeline" class="tab-body hidden"></div>
+  <header><div class="breadcrumb">Workspace <span>/</span> Investigations</div><div class="header-right"><span class="pill" id="connection" role="status">Connecting</span><span class="avatar" aria-label="Local analyst">AN</span></div></header>
+  <section class="intro"><div><div class="eyebrow">VULNERABILITY INTELLIGENCE, IN CONTEXT</div><h1>Evidence before action.</h1><p>From a CVE watchlist to a source-backed next step.</p></div><div class="scope"><span class="scope-icon" aria-hidden="true">◎</span><div>Focused by design<small>Up to 3 CVEs · PAN-OS version pilot</small></div></div></section>
+  <section id="review" class="review-section" aria-labelledby="reviewTitle">
+    <div class="section-heading"><div><div class="eyebrow">A QUICK WAY TO EXPLORE</div><h2 id="reviewTitle">Three investigations. The original evidence.</h2></div><button id="tour" class="secondary">Take the guided tour <span aria-hidden="true">↗</span></button></div>
+    <p class="review-note">Recorded real runs with public live sources and fictional inputs. Opening them makes no LLM request.</p>
+    <div id="demoCards" class="demo-grid" aria-live="polite"><div class="empty">Loading recorded examples…</div></div>
   </section>
-  <section class="panel" id="actions"><div class="section-heading"><div><span class="eyebrow">FROM FINDING TO FOLLOW-UP</span><h2>Action drafts</h2></div><a class="secondary" href="/api/tasks-export">Export CSV ↓</a></div><p class="muted">Accepting a draft records your review. It does not execute a change or create an external ticket.</p><div id="taskList"><div class="empty">Actions with field-level evidence appear after an upgraded investigation.</div></div></section>
-  <section class="panel" id="changes"><div class="section-heading"><div><span class="eyebrow">WHAT CHANGED?</span><h2>Compare source observations</h2></div><span class="subtle-tag">Saved snapshots</span></div><div class="compare-controls"><label>Earlier run<select id="before" aria-label="Earlier run"></select></label><span>→</span><label>Later run<select id="after" aria-label="Later run"></select></label><button class="secondary" id="compare">Compare</button></div><div id="diff" class="empty">Compare KEV status, EPSS scores, vendor versions and asset assessments.</div></section>
-  <footer><span>VulnBrief / Agentic AI assessment</span><span>Evidence supports judgment. It does not replace review.</span></footer>
-</main><script src="/app.js"></script>
-</body></html>
+  <div class="stats" aria-label="Selected investigation summary">
+    <div><span class="stat-label">SELECTED INVESTIGATION</span><strong id="statStatus">No run selected</strong><small id="statModel">Select a recorded run or start a new one</small></div>
+    <div><span class="stat-label">ASSETS ASSESSED</span><strong id="statAssets">—</strong><small>Version evidence; configuration still needs review</small></div>
+    <div><span class="stat-label">IN RETRIEVED KEV CATALOG</span><strong id="statKev">—</strong><small id="statKevDetail">Unknown until source evidence is available</small></div>
+    <div><span class="stat-label">ACTION DRAFTS</span><strong id="statTasks">0</strong><small>For the selected investigation</small></div>
+  </div>
+  <div class="top-grid">
+    <section class="panel composer" id="compose" aria-labelledby="composeTitle"><div class="section-heading"><h2 id="composeTitle">Start a live investigation</h2><span class="subtle-tag">Your API key · fresh sources</span></div>
+      <label for="goal">Investigation goal</label><textarea id="goal" rows="3">Review the CVEs in this inventory. Retrieve live CVE, KEV, EPSS and current vendor evidence, assess asset versions, and recommend conditional next actions with source-field citations.</textarea>
+      <div class="inventory-header"><label for="file">Asset inventory <span class="muted">optional · CSV or JSON</span></label><button class="link-button" id="example">Use fictional example <span aria-hidden="true">↗</span></button></div>
+      <label class="file-zone" for="file"><span aria-hidden="true">↑</span><span id="fileLabel">Choose an inventory file<small>Product, version, exposure and owner · up to 50 KB</small></span><input type="file" id="file" accept=".json,.csv"></label>
+      <p class="form-note">Inventory is sent to your selected LLM provider. Use fictional data for this assessment.</p>
+      <details id="inventoryDetails"><summary>View or edit inventory</summary><label class="sr-only" for="format">Inventory format</label><select id="format"><option value="csv">CSV</option><option value="json">JSON</option></select><label class="sr-only" for="inventory">Inventory contents</label><textarea id="inventory" rows="5" placeholder="Paste your inventory, or load the fictional example."></textarea></details>
+      <label for="model" class="model-label">API model</label><select id="model"><option value="openai/gpt-oss-120b">GPT-OSS 120B</option><option value="openai/gpt-oss-20b">GPT-OSS 20B · smaller alternative</option></select>
+      <div class="composer-footer"><label class="check"><input type="checkbox" id="fault"> Demonstrate one source timeout</label><button class="primary" id="start">Investigate <span aria-hidden="true">↗</span></button></div>
+      <p class="form-note">The agent chooses its steps. Live runs usually take a few minutes. Provider quotas apply.</p><div id="notice" role="status" aria-live="polite"></div>
+    </section>
+    <section class="panel recent" aria-labelledby="historyTitle"><div class="section-heading"><h2 id="historyTitle">Investigation history</h2><button class="link-button" id="refresh">Refresh <span aria-hidden="true">↻</span></button></div><p class="muted">Every outcome stays available, including development failures.</p><label class="sr-only" for="historyFilter">Filter investigation history</label><select id="historyFilter"><option value="all">All investigations</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed or interrupted</option></select><div id="runList" class="run-list"><div class="empty">Loading saved investigations…</div></div></section>
+  </div>
+  <section class="panel investigation" id="workspace" aria-labelledby="runTitle" tabindex="-1">
+    <div class="section-heading"><div><span class="eyebrow" id="runOrigin">INVESTIGATION DETAIL</span><h2 id="runTitle">Choose a run to inspect</h2></div><div class="detail-buttons"><button class="secondary" id="rerun" disabled>Edit & re-run <span aria-hidden="true">↗</span></button><a class="secondary disabled" id="download" href="#" aria-disabled="true">Download report <span aria-hidden="true">↓</span></a></div></div>
+    <p id="runMeta" class="muted">Plans, observations and recommendations stay linked to the same execution.</p>
+    <div class="execution-strip" id="execution" aria-live="polite"><span class="phase-dot" aria-hidden="true"></span><strong id="phaseName">Waiting for a selection</strong><span id="phaseDetail">Original observations will appear here</span><span id="runMetrics"></span></div>
+    <div class="tabs" role="tablist" aria-label="Investigation views"><button id="tab-findings" class="selected" role="tab" aria-selected="true" aria-controls="findings" data-tab="findings">Findings</button><button id="tab-evidence" role="tab" aria-selected="false" aria-controls="evidence" tabindex="-1" data-tab="evidence">Source evidence <span id="evidenceCount">0</span></button><button id="tab-timeline" role="tab" aria-selected="false" aria-controls="timeline" tabindex="-1" data-tab="timeline">Execution timeline</button></div>
+    <div id="findings" class="tab-body" role="tabpanel" aria-labelledby="tab-findings" tabindex="0"><div class="empty large"><h3>Your evidence, in one place.</h3><p>Select a recorded investigation or start a live run.</p></div></div>
+    <div id="evidence" class="tab-body hidden" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0"></div><div id="timeline" class="tab-body hidden" role="tabpanel" aria-labelledby="tab-timeline" tabindex="0"></div>
+  </section>
+  <section class="panel" id="actions" aria-labelledby="actionsTitle"><div class="section-heading"><div><span class="eyebrow">FROM FINDING TO FOLLOW-UP</span><h2 id="actionsTitle">Action drafts</h2></div><a id="taskExport" class="secondary" href="/api/tasks-export">Export CSV <span aria-hidden="true">↓</span></a></div><div class="task-toolbar"><p class="muted">Accepting a draft records your review. It executes no change.</p><label class="check"><input id="allTasks" type="checkbox"> Show all investigations</label></div><div id="taskList"><div class="empty">Field-cited follow-ups appear after an investigation.</div></div></section>
+  <section class="panel" id="changes" aria-labelledby="changesTitle"><div class="section-heading"><div><span class="eyebrow">WHAT CHANGED?</span><h2 id="changesTitle">Compare source observations</h2></div><span class="subtle-tag">Saved snapshots</span></div><div class="compare-controls"><label>Earlier run<select id="before"></select></label><span aria-hidden="true">→</span><label>Later run<select id="after"></select></label><button class="secondary" id="compare">Compare</button></div><div id="diff" class="empty">Compare KEV status, EPSS scores, vendor versions and asset assessments.</div></section>
+  <footer><span>VulnBrief / Agentic AI assessment</span><span>Evidence supports judgment. Analyst review comes next.</span></footer>
+</main>
+<dialog id="evidenceDialog" aria-labelledby="inspectorTitle">
+  <div class="inspector-heading"><div><span class="eyebrow">FOLLOW THE CITATION</span><h2 id="inspectorTitle">Evidence inspector</h2></div><button id="closeInspector" class="icon-button" aria-label="Close evidence inspector">×</button></div>
+  <div id="inspectorBody" aria-live="polite"></div>
+  <p class="form-note">A matching field makes support inspectable. It does not prove every inference in the claim.</p>
+</dialog>
+<section class="tour-panel" id="tourPanel" aria-label="Guided project review" hidden>
+  <div class="section-heading"><span class="eyebrow" id="tourStep">GUIDED REVIEW</span><button id="closeTour" class="icon-button" aria-label="Close guided tour">×</button></div>
+  <h2 id="tourTitle"></h2><p id="tourText"></p><div class="tour-controls"><button id="tourPrevious" class="secondary">Previous</button><button id="tourNext" class="primary">Next <span aria-hidden="true">→</span></button></div>
+</section>
+<script type="module" src="/app.js"></script>
+</body>
+</html>

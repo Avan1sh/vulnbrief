@@ -4,13 +4,14 @@ from contextlib import asynccontextmanager
 import csv
 import io
 import json
+import mimetypes
 import os
 from pathlib import Path
 from threading import Lock
 from uuid import uuid4
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import Field
@@ -23,6 +24,8 @@ from .llm import GroqLLM
 from .models import Context, StrictModel
 from .tools import ToolKit
 from .trace import Trace
+from .reviewer import demonstrations, inspect_evidence
+from . import __version__
 
 
 class StartRun(StrictModel):
@@ -40,6 +43,10 @@ class TaskReview(StrictModel):
 
 
 def create_app(project: Path | None = None, storage: Path | None = None, runner=None):
+    # Windows registry mappings can label ES modules as text/plain. Browsers
+    # enforce JavaScript MIME types for module imports on every platform.
+    mimetypes.add_type('text/javascript','.mjs')
+    mimetypes.add_type('text/javascript','.js')
     project=(project or Path.cwd()).resolve()
     storage=(storage or project/'.vulnbrief').resolve()
     storage.mkdir(parents=True,exist_ok=True)
@@ -62,7 +69,7 @@ def create_app(project: Path | None = None, storage: Path | None = None, runner=
         yield
         executor.shutdown(wait=False,cancel_futures=True)
 
-    app=FastAPI(title='VulnBrief workbench',version='0.2.0',lifespan=lifespan)
+    app=FastAPI(title='VulnBrief workbench',version=__version__,lifespan=lifespan)
     app.state.history=history
     app.add_middleware(TrustedHostMiddleware,allowed_hosts=['127.0.0.1','localhost','testserver'])
 
@@ -134,7 +141,7 @@ def create_app(project: Path | None = None, storage: Path | None = None, runner=
     @app.get('/api/config')
     def config():
         return {'model':os.getenv('VULNBRIEF_MODEL','openai/gpt-oss-120b'),
-                'key_configured':bool(os.getenv('GROQ_API_KEY','').strip()),'version':'0.2.0',
+                'key_configured':bool(os.getenv('GROQ_API_KEY','').strip()),'version':__version__,
                 'supported_vendor':'PAN-OS advisory/version pilot; other products remain unverified'}
 
     @app.get('/api/example')
@@ -148,6 +155,10 @@ def create_app(project: Path | None = None, storage: Path | None = None, runner=
     def runs():
         return history.list()
 
+    @app.get('/api/demonstrations')
+    def recorded_demonstrations():
+        return demonstrations(history)
+
     @app.post('/api/runs',status_code=202)
     def start(request:StartRun):
         return launch(request)
@@ -157,6 +168,17 @@ def create_app(project: Path | None = None, storage: Path | None = None, runner=
         data=existing(run_id)
         data.pop('directory')
         return data
+
+    @app.get('/api/runs/{run_id}/evidence/{evidence_id}')
+    def evidence_detail(run_id:str, evidence_id:str,
+                        field_path:str=Query(default='',max_length=500,pattern=r'^(?:/[^\x00-\x1f]*)?$')):
+        report=existing(run_id)['report']
+        if not report:
+            raise HTTPException(409,'A report observation is not ready yet')
+        try:
+            return inspect_evidence(report,evidence_id,field_path)
+        except (KeyError,IndexError,TypeError,ValueError,AttributeError):
+            raise HTTPException(404,'The cited evidence field does not exist') from None
 
     @app.post('/api/runs/{run_id}/rerun',status_code=202)
     def rerun(run_id:str,request:StartRun):

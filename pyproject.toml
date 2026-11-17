@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vulnbrief"
-version = "0.2.0"
+version = "0.3.0"
 description = "A bounded, evidence-grounded vulnerability investigation agent"
 readme = "README.md"
 authors = [{name = "Avanish", email = "146538317+Avan1sh@users.noreply.github.com"}]
@@ -36,7 +36,7 @@ vulnbrief = "vulnbrief.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-vulnbrief = ["web/*.html", "web/*.css", "web/*.js"]
+vulnbrief = ["web/*.html", "web/*.css", "web/*.js", "web/*.mjs"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
