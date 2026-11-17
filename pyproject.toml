@@ -6,6 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "vulnbrief"
 version = "0.2.0"
 description = "A bounded, evidence-grounded vulnerability investigation agent"
+readme = "README.md"
+authors = [{name = "Avanish", email = "146538317+Avan1sh@users.noreply.github.com"}]
+keywords = ["agentic-ai", "vulnerability-management", "cve", "langgraph", "cybersecurity"]
 requires-python = ">=3.10"
 dependencies = [
   "groq==0.37.1",
@@ -20,6 +23,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest==9.2.0", "build==1.6.1"]
+
+[project.urls]
+Repository = "https://github.com/Avan1sh/vulnbrief"
+Issues = "https://github.com/Avan1sh/vulnbrief/issues"
+Changelog = "https://github.com/Avan1sh/vulnbrief/blob/main/CHANGELOG.md"
 
 [project.scripts]
 vulnbrief = "vulnbrief.cli:main"

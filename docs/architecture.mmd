@@ -1,0 +1,27 @@
+flowchart TD
+    UI[Local dashboard / CSV or JSON inventory] --> J[Single worker queue]
+    J --> U[User goal and selected context]
+    CLI[CLI] --> U
+    U --> P[PLAN: schema-validated LLM plan]
+    P --> D[DECIDE: LLM native function calls]
+    D --> T[TOOLS: validate scope and dispatch]
+    T --> F[Context / CVE / KEV / EPSS / Vendor advisory / Asset version assessment]
+    F --> O[Typed observation or error with evidence ID]
+    O --> D
+    T -->|LLM selected finish| R[REPORT: structured LLM judgments]
+    D -->|Round or tool budget reached| R
+    D -->|Model ends with text| R
+    R --> V{Validate references, coverage, ranks}
+    V --> C[Separate source-grounding LLM review]
+    C -->|One shared repair attempt| R
+    V -->|One shared repair attempt| R
+    C -->|Accepted| A[JSON + Markdown + original evidence]
+    A --> H[SQLite history and local task drafts]
+    H --> UI
+    H --> EX[Review status / CSV export / two-run observation comparison]
+    X[One-shot timeout flag] -.-> F
+    B[Wall-time / provider / validation failure] --> S[Explicit failed or partial run artifact]
+    P -.-> L[Local JSONL events and readable transcript]
+    T -.-> L
+    V -.-> L
+    S -.-> L
