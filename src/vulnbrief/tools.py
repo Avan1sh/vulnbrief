@@ -21,7 +21,7 @@ SPECS = {
     "lookup_kev": (KevArgs, "Look up CVEs in a live CISA KEV catalog. Absence is not proof of safety."),
     "get_epss": (CvesArgs, "Retrieve live FIRST EPSS scores. Missing scores remain unknown, not zero."),
     "get_vendor_advisory": (CvesArgs, "Fetch current PAN-OS vendor advisories referenced by retrieved CVE records. Includes version table, fixed-version candidates, dates and a short solution excerpt. Unsupported vendors return a typed gap."),
-    "assess_assets": (NoArgs, "Compare the selected inventory to retrieved vendor version tables. Read context and fetch vendor advisory first. Supports PAN-OS numeric/hotfix versions; uncertain applicability stays unverified."),
+    "assess_assets": (NoArgs, "Compare the selected inventory to available vendor tables. Read context first and try vendor guidance. Call even after unsupported vendor guidance to record explicit unverified outcomes. Supports PAN-OS numeric/hotfix versions; missing/uncertain applicability stays unverified."),
     "finish_investigation": (NoArgs, "Finish gathering evidence and generate the report, including any unresolved gaps."),
 }
 

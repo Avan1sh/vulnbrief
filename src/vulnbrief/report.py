@@ -7,6 +7,15 @@ def version_tokens(text):
     normalized=str(text).translate(str.maketrans({c:'-' for c in '\u2010\u2011\u2012\u2013\u2014\u2212'}))
     return set(re.findall(r'\b\d+\.\d+\.\d+(?:-h\d+)?\b',normalized))
 
+
+def upgrade_targets(text):
+    """Additional lexical guard for common named upgrade/install recommendations.
+
+    This deliberately does not claim complete semantic verification of prose.
+    """
+    normalized=str(text).translate(str.maketrans({c:'-' for c in '\u2010\u2011\u2012\u2013\u2014\u2212'}))
+    return set(re.findall(r'\b(?:upgrade|update|patch|install|deploy)\b[^;!?\n]{0,100}?\b(?:to\s+(?:version\s+)?|version\s+)(\d+\.\d+\.\d+(?:-h\d+)?)\b',normalized,re.I))
+
 from .models import ReportDraft
 
 
@@ -94,6 +103,14 @@ def validate_evidence(draft: ReportDraft, evidence: list, scope: set[str]) -> li
                 missing=version_tokens(action.text)-cited_versions
                 if missing:
                     errors.append(f"{finding.cve_id}: action versions {sorted(missing)} are not present in its cited source values. Use the exact version_citations supplied in source_facts or cite the matching vendor table row.")
+                fixed_targets=set()
+                for ref in action.support:
+                    e=by_id[ref.evidence_id]
+                    if e.tool=='get_vendor_advisory' and re.fullmatch(r'/fixed_version_candidates/\d+',ref.field_path):
+                        fixed_targets |= version_tokens(str(resolve_pointer(e.data,ref.field_path)))
+                unsupported_targets=upgrade_targets(action.text)-fixed_targets
+                if unsupported_targets:
+                    errors.append(f"{finding.cve_id}: named upgrade targets {sorted(unsupported_targets)} lack an exact current vendor fixed_version_candidates citation. An affected-version description is not proof of a fixed target. Omit the target and recommend checking current vendor guidance if no supported advisory exists.")
     if draft.status == "complete":
         tools = {e.tool for e in evidence}
         if len(tools) < 2:

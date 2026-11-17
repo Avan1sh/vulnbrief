@@ -4,6 +4,7 @@ import httpx
 from vulnbrief.tools import ToolKit
 from vulnbrief.report import validate_evidence, source_facts
 from test_agent import draft, CVE
+from vulnbrief.models import Evidence, SourceRef
 
 
 def test_failure_ids_never_consume_evidence_ids():
@@ -35,3 +36,17 @@ def test_action_named_version_must_match_cited_value():
     report=draft()
     report.findings[0].recommended_actions[0].text='Upgrade to 11.0.4\u2011h1'
     assert any('not present' in e for e in validate_evidence(report,kit.evidence,{CVE}))
+
+
+def test_affected_version_text_cannot_support_a_named_upgrade_target():
+    evidence=[Evidence(evidence_id='E001',tool='get_cve_record',cve_ids=[CVE],
+        source_url='https://example.test/cve',retrieved_at='2026-11-17T00:00:00Z',source_date=None,
+        location='primary',data={'record_state':'PUBLISHED','description':'Versions before 2.15.0 are affected'})]
+    report=draft();action=report.findings[0].recommended_actions[0]
+    action.text='Upgrade the component to version 2.15.0';action.support[0].field_path='/description'
+    assert any('lack an exact current vendor' in e for e in validate_evidence(report,evidence,{CVE}))
+    evidence.append(Evidence(evidence_id='E002',tool='get_vendor_advisory',cve_ids=[CVE],
+        source_url='https://example.test/vendor',retrieved_at='2026-11-17T00:00:00Z',source_date=None,
+        location='vendor',data={'fixed_version_candidates':['2.15.0']}))
+    action.support=[SourceRef(evidence_id='E002',field_path='/fixed_version_candidates/0')]
+    assert not validate_evidence(report,evidence,{CVE})

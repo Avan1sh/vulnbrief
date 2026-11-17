@@ -143,3 +143,42 @@ def test_semantic_rejection_requests_one_repair(tmp_path):
     result = Investigator(model, make_kit(), trace).run(f'Investigate {CVE}')
     assert result['analysis'] is not None
     assert any(e['event']=='report_rejected' and 'Unsupported imminence claim' in e['errors'] for e in trace.events)
+
+
+def test_invalid_initial_plan_gets_one_bounded_schema_correction(tmp_path):
+    model=ScriptedModel([call('get_cve_record',{'cve_id':CVE,'source':'primary'}),call('finish_investigation',{},2)])
+    original=model.structured;attempts=[]
+    def structured(messages,schema,deadline):
+        if schema is Plan:
+            attempts.append(1)
+            if len(attempts)==1:
+                model.calls+=1
+                return Plan.model_validate({})
+        return original(messages,schema,deadline)
+    model.structured=structured;trace=Trace(tmp_path/'plan-repair',True)
+    result=Investigator(model,make_kit(),trace).run(f'Investigate {CVE}')
+    assert result['analysis'] is not None and len(attempts)==2
+    assert sum(e['event']=='plan_schema_retry' for e in trace.events)==1
+    assert next(e['sequence'] for e in trace.events if e['event']=='plan')<next(e['sequence'] for e in trace.events if e['event']=='tool_start')
+
+
+def test_initial_plan_correction_cannot_retry_forever(tmp_path):
+    model=ScriptedModel([]);attempts=[]
+    def invalid(*args):
+        attempts.append(1);model.calls+=1
+        return Plan.model_validate({})
+    model.structured=invalid;trace=Trace(tmp_path/'plan-stop',True)
+    result=Investigator(model,make_kit(),trace).run(f'Investigate {CVE}')
+    assert len(attempts)==2 and result['analysis'] is None
+    assert not any(e['event']=='tool_start' for e in trace.events)
+
+
+def test_unread_selected_inventory_is_a_report_validation_issue(tmp_path):
+    context=tmp_path/'inventory.json';context.write_text('{}')
+    kit=make_kit();kit.context_path=context
+    incomplete=draft();incomplete.status='complete'
+    model=ScriptedModel([call('get_cve_record',{'cve_id':CVE,'source':'primary'}),call('finish_investigation',{},2)],reports=[incomplete,draft()])
+    trace=Trace(tmp_path/'unread-context',True)
+    result=Investigator(model,kit,trace).run(f'Investigate {CVE}')
+    assert result['status']=='partial'
+    assert any('Selected inventory' in error for event in trace.events if event['event']=='report_rejected' for error in event['errors'])
