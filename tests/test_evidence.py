@@ -1,0 +1,37 @@
+import time
+import httpx
+
+from vulnbrief.tools import ToolKit
+from vulnbrief.report import validate_evidence, source_facts
+from test_agent import draft, CVE
+
+
+def test_failure_ids_never_consume_evidence_ids():
+    kit=ToolKit(inject_failure=True, client=httpx.Client(transport=httpx.MockTransport(lambda r:httpx.Response(200,json={"cveMetadata":{"cveId":CVE,"state":"PUBLISHED"}}))))
+    kit.allowed_cves={CVE}
+    a=kit.invoke('get_cve_record',{'cve_id':CVE,'source':'primary'},time.monotonic()+5)
+    b=kit.invoke('get_cve_record',{'cve_id':CVE,'source':'official_mirror'},time.monotonic()+5)
+    assert a['error']['error_id']=='ERR001'
+    assert a['error']['arguments']['source']=='primary'
+    assert b['evidence']['evidence_id']=='E001'
+    assert b['evidence']['location']=='official_mirror'
+
+
+def test_action_field_path_must_exist_and_match_cve():
+    kit=ToolKit(client=httpx.Client(transport=httpx.MockTransport(lambda r:httpx.Response(200,json={"cveMetadata":{"cveId":CVE,"state":"PUBLISHED"}}))))
+    kit.allowed_cves={CVE}
+    kit.invoke('get_cve_record',{'cve_id':CVE,'source':'primary'},time.monotonic()+5)
+    report=draft()
+    assert not validate_evidence(report,kit.evidence,{CVE})
+    report.findings[0].recommended_actions[0].support[0].field_path='/invented_patch'
+    assert validate_evidence(report,kit.evidence,{CVE})
+    assert source_facts(kit.evidence)[CVE]['source_severity']==[]
+
+
+def test_action_named_version_must_match_cited_value():
+    kit=ToolKit(client=httpx.Client(transport=httpx.MockTransport(lambda r:httpx.Response(200,json={'cveMetadata':{'cveId':CVE,'state':'PUBLISHED'}}))))
+    kit.allowed_cves={CVE}
+    kit.invoke('get_cve_record',{'cve_id':CVE,'source':'primary'},time.monotonic()+5)
+    report=draft()
+    report.findings[0].recommended_actions[0].text='Upgrade to 11.0.4\u2011h1'
+    assert any('not present' in e for e in validate_evidence(report,kit.evidence,{CVE}))
