@@ -2,6 +2,18 @@
 
 Review these against the actual form before submitting. This guide does not submit anything.
 
+Prepared upload PDFs (18 November 2026):
+
+| Form field | File |
+| --- | --- |
+| Sample Run Transcripts/Logs | [Sample transcripts and logs](submission/01-sample-run-transcripts-and-logs.pdf) |
+| Synthetic/Test Traces Used (with labels) | [Labeled traces](submission/02-synthetic-test-traces-with-labels.pdf) |
+| Monitoring Report / Dashboard Output | [Engineering monitoring and dashboard output](submission/03-monitoring-report-and-dashboard-output.pdf) |
+
+Each PDF is below 0.3 MB and includes the relevant original evidence as embedded
+files plus repository links. The monitoring PDF explicitly describes the Engineer
+track scope; no detector precision/recall is invented.
+
 **Role:** Agentic AI Engineer Intern.
 
 **Domain/goal:** Autonomous vulnerability investigation and asset-aware triage. The agent combines live CVE, CISA KEV, FIRST EPSS and supported vendor advisory data with optional JSON/CSV inventory. It produces version-based assessments, conditional field-cited actions and reviewable task drafts, with a local workbench and saved run comparisons. The supported version pilot is PAN-OS; uncertain cases remain unverified.

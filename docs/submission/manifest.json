@@ -1,0 +1,27 @@
+{
+  "prepared_on": "18 November 2026",
+  "source_release": "0.3.0",
+  "source_commit": "e7fcfed647013c670279084089c6e77b8821b8bb",
+  "format": "PDF",
+  "max_upload_bytes": 10000000,
+  "files": [
+    {
+      "file": "01-sample-run-transcripts-and-logs.pdf",
+      "bytes": 225049,
+      "sha256": "228071ce34591561105117012e82606d64c3b30a0852a6cf85ebda81c1ba21ba",
+      "pages": 11
+    },
+    {
+      "file": "02-synthetic-test-traces-with-labels.pdf",
+      "bytes": 249413,
+      "sha256": "6794a8ba3aa2bbae20e13abe5c2fe3767acfa03f070d29df46faec48361aa519",
+      "pages": 6
+    },
+    {
+      "file": "03-monitoring-report-and-dashboard-output.pdf",
+      "bytes": 242246,
+      "sha256": "93e649bcca09a58ab08f9d5cfab03dd48e27e375827649f4256d7fe6a7def81b",
+      "pages": 6
+    }
+  ]
+}
