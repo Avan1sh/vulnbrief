@@ -239,7 +239,7 @@ With more time: additional vendor/version adapters, stronger claim-level verific
 
 ## Sources and authorship
 
-Maintained by [Avanish](https://github.com/Avan1sh). Original implementation developed for this assessment with AI coding assistance, reviewed and exercised locally. Public documentation was used as a technical reference; no public agent repository implementation was copied. The applicant should review the code and explain the design and limitations in an interview.
+Maintained by [Avanish](https://github.com/Avan1sh). Original implementation developed for this project with AI coding assistance, reviewed and exercised locally. Public documentation was used as a technical reference; no public agent repository implementation was copied. The applicant should review the code and explain the design and limitations in an interview.
 
 - [CVE Services API](https://cveawg.mitre.org/api-docs/) and [official CVE data](https://github.com/CVEProject/cvelistV5)
 - [CISA KEV catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) and [official mirror](https://github.com/cisagov/kev-data)
