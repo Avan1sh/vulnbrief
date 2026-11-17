@@ -1,0 +1,24 @@
+{
+  "run_id": "unsupported_vendor-02",
+  "created_at": "2026-11-17T17:13:04.013647+00:00",
+  "goal": "Investigate CVE-2021-44228 for the selected fictional inventory. Check live CVE, KEV and EPSS. Try supported vendor guidance and asset assessment; if this product is unsupported, keep applicability unverified. Use conditional actions and exact source-field citations.",
+  "model": "openai/gpt-oss-20b",
+  "status": "failed",
+  "plan": null,
+  "analysis": null,
+  "stop_reason": "Initial plan failed schema validation",
+  "evidence": [],
+  "schema_version": "0.2",
+  "source_facts": {},
+  "tool_errors": [],
+  "asset_assessments": [],
+  "errors": [],
+  "metrics": {
+    "llm_calls": 1,
+    "total_tokens": 690,
+    "tool_calls": 0,
+    "tool_failures": 0,
+    "elapsed_seconds": 1.92,
+    "fault_injected": false
+  }
+}

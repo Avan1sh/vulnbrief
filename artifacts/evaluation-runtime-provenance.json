@@ -1,0 +1,34 @@
+[
+  {
+    "batch": "evaluation-v03",
+    "commit": "a1f79d726f82afc9b52a817be4d00dd38130c139",
+    "business_runtime_files": [
+      "agent",
+      "llm",
+      "tools",
+      "inventory",
+      "vendor",
+      "models",
+      "report",
+      "trace"
+    ],
+    "recorded_fingerprint": "d9f329f874e8b39042d2ab979e0e5ed4dda07d94ccc20f0211be2bd70ece3e2f",
+    "verified_against_git": true
+  },
+  {
+    "batch": "evaluation-v03-followup",
+    "commit": "b1e3fb56025e1ff6769ed9fdd42294d5d1c6e9ed",
+    "business_runtime_files": [
+      "agent",
+      "llm",
+      "tools",
+      "inventory",
+      "vendor",
+      "models",
+      "report",
+      "trace"
+    ],
+    "recorded_fingerprint": "9ca08566edaf54da8b6187d83b4c0e7c5b6699ada4d652556e2612c0527caa8c",
+    "verified_against_git": true
+  }
+]

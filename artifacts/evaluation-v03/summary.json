@@ -1,0 +1,151 @@
+{
+  "created_at": "2026-11-17T17:03:24.013958+00:00",
+  "scope": "Behavioral engineering evaluation with real LLM calls and live public sources. Inputs are synthetic; no fixed priority or model wording is prescribed.",
+  "model": "openai/gpt-oss-20b",
+  "runtime_fingerprint": "d9f329f874e8b39042d2ab979e0e5ed4dda07d94ccc20f0211be2bd70ece3e2f",
+  "planned_cases": [
+    "missing_record",
+    "unsupported_vendor",
+    "scope_guard"
+  ],
+  "planned_trials": 6,
+  "max_total_tokens": 80000,
+  "per_trial_bounds": {
+    "seconds": 480,
+    "rounds": 8,
+    "data_tool_attempts": 12
+  },
+  "trials": [
+    {
+      "case_id": "missing_record",
+      "trial": 1,
+      "directory": "missing_record-01",
+      "status": "partial",
+      "checks": {
+        "accepted_analysis": true,
+        "plan_before_tools": true,
+        "required_tools_selected": true,
+        "scope_covered": true,
+        "valid_scoped_evidence_refs": true,
+        "source_review_accepted": true,
+        "expected_status": true,
+        "source_missing_epss_preserved": true
+      },
+      "metrics": {
+        "llm_calls": 8,
+        "total_tokens": 14172,
+        "tool_calls": 4,
+        "tool_failures": 2,
+        "elapsed_seconds": 182.08,
+        "fault_injected": false
+      },
+      "manual_semantic_accuracy": "not_assessed"
+    },
+    {
+      "case_id": "missing_record",
+      "trial": 2,
+      "directory": "missing_record-02",
+      "status": "partial",
+      "checks": {
+        "accepted_analysis": true,
+        "plan_before_tools": true,
+        "required_tools_selected": true,
+        "scope_covered": true,
+        "valid_scoped_evidence_refs": true,
+        "source_review_accepted": true,
+        "expected_status": true,
+        "source_missing_epss_preserved": true
+      },
+      "metrics": {
+        "llm_calls": 8,
+        "total_tokens": 14629,
+        "tool_calls": 4,
+        "tool_failures": 2,
+        "elapsed_seconds": 181.89,
+        "fault_injected": false
+      },
+      "manual_semantic_accuracy": "not_assessed"
+    },
+    {
+      "case_id": "unsupported_vendor",
+      "trial": 1,
+      "directory": "unsupported_vendor-01",
+      "status": "complete",
+      "checks": {
+        "accepted_analysis": true,
+        "plan_before_tools": true,
+        "required_tools_selected": false,
+        "scope_covered": true,
+        "valid_scoped_evidence_refs": true,
+        "source_review_accepted": true,
+        "unsupported_or_missing_assets_unverified": false
+      },
+      "metrics": {
+        "llm_calls": 8,
+        "total_tokens": 19974,
+        "tool_calls": 4,
+        "tool_failures": 1,
+        "elapsed_seconds": 207.98,
+        "fault_injected": false
+      },
+      "manual_semantic_accuracy": "not_assessed"
+    },
+    {
+      "case_id": "unsupported_vendor",
+      "trial": 2,
+      "directory": "unsupported_vendor-02",
+      "status": "failed",
+      "checks": {
+        "accepted_analysis": false,
+        "plan_before_tools": false,
+        "required_tools_selected": false,
+        "scope_covered": false,
+        "valid_scoped_evidence_refs": false,
+        "source_review_accepted": false,
+        "unsupported_or_missing_assets_unverified": false
+      },
+      "metrics": {
+        "llm_calls": 1,
+        "total_tokens": 690,
+        "tool_calls": 0,
+        "tool_failures": 0,
+        "elapsed_seconds": 1.92,
+        "fault_injected": false
+      },
+      "manual_semantic_accuracy": "not_assessed"
+    },
+    {
+      "case_id": "scope_guard",
+      "trial": 1,
+      "directory": "scope_guard-01",
+      "status": "input_rejected",
+      "checks": {
+        "scope_rejected_before_model": true
+      },
+      "metrics": {
+        "llm_calls": 0,
+        "total_tokens": 0,
+        "elapsed_seconds": 0.0
+      },
+      "manual_semantic_accuracy": "not_assessed"
+    },
+    {
+      "case_id": "scope_guard",
+      "trial": 2,
+      "directory": "scope_guard-02",
+      "status": "input_rejected",
+      "checks": {
+        "scope_rejected_before_model": true
+      },
+      "metrics": {
+        "llm_calls": 0,
+        "total_tokens": 0,
+        "elapsed_seconds": 0.0
+      },
+      "manual_semantic_accuracy": "not_assessed"
+    }
+  ],
+  "stop_reason": null,
+  "total_observed_tokens": 49465,
+  "finished_at": "2026-11-17T17:13:10.076144+00:00"
+}

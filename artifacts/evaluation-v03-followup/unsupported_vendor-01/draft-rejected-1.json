@@ -1,0 +1,69 @@
+{
+  "accepted": false,
+  "issues": [
+    "Summary contains missing or inconsistent source field references",
+    "CVE-2021-44228: action versions ['2.14.1'] are not present in its cited source values. Use the exact version_citations supplied in source_facts or cite the matching vendor table row."
+  ],
+  "draft": {
+    "status": "partial",
+    "summary": [
+      {
+        "text": "The investigation examined CVE-2021-44228, a remote code execution vulnerability in Apache Log4j2 affecting versions 2.0\u2011beta9 through 2.15.0 (excluding certain security releases). The fictional inventory contains an asset running Log4j2 2.14.1, which falls within the affected range.",
+        "evidence_ids": [
+          "E002",
+          "E005"
+        ],
+        "field_refs": [
+          {
+            "evidence_id": "E002",
+            "field_path": "/descriptions/0"
+          },
+          {
+            "evidence_id": "E005",
+            "field_path": "/data/assessments/0/product_version"
+          }
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "cve_id": "CVE-2021-44228",
+        "rank": 1,
+        "priority": "high",
+        "rationale": "The asset\u2019s Log4j2 version 2.14.1 is listed as affected in the CVE record, and the KEV entry confirms the vulnerability is known to be exploited. EPSS indicates a very high likelihood of exploitation in the next 30 days. No vendor advisory with a fixed version is available for this product, so applicability remains unverified until configuration and version checks are performed.",
+        "evidence_ids": [
+          "E002",
+          "E003",
+          "E004",
+          "E005"
+        ],
+        "recommended_actions": [
+          {
+            "text": "Verify the exact Log4j2 version and configuration of the asset. If the version is 2.14.1 or any other affected release, apply the latest available patch or upgrade to a fixed version once vendor guidance is confirmed.",
+            "applies_when": "Confirm the asset\u2019s Log4j2 version and that JNDI lookup substitution is enabled in the configuration.",
+            "support": [
+              {
+                "evidence_id": "E002",
+                "field_path": "/descriptions/0"
+              },
+              {
+                "evidence_id": "E003",
+                "field_path": "/results/0/entry/requiredAction"
+              },
+              {
+                "evidence_id": "E004",
+                "field_path": "/results/0/score"
+              }
+            ]
+          }
+        ],
+        "uncertainties": [
+          "Vendor fixed version information is not available; the asset may be affected only if JNDI lookup substitution is enabled."
+        ]
+      }
+    ],
+    "limitations": [
+      "The investigation could not retrieve a vendor advisory with a specific fixed version for Apache Log4j2, so the applicability of a patch cannot be confirmed without further vendor guidance."
+    ]
+  }
+}

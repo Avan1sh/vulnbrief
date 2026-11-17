@@ -1,0 +1,15 @@
+{
+  "origin": "synthetic",
+  "notes": "Evaluation-only fictional inventory. A watchlist association is not a confirmed finding.",
+  "assets": [
+    {
+      "label": "fictional-java-service",
+      "cve_id": "CVE-2021-44228",
+      "product": "Apache Log4j",
+      "product_version": "2.14.1",
+      "exposure": "Internal; reachability not verified",
+      "business_importance": "High",
+      "owner": "Example application team"
+    }
+  ]
+}

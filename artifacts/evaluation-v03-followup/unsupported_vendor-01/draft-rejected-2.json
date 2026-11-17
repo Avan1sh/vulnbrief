@@ -1,0 +1,69 @@
+{
+  "accepted": false,
+  "issues": [
+    "CVE-2021-44228: action versions ['2.14.1'] are not present in its cited source values. Use the exact version_citations supplied in source_facts or cite the matching vendor table row."
+  ],
+  "draft": {
+    "status": "partial",
+    "summary": [
+      {
+        "text": "CVE-2021-44228 is a critical remote code execution vulnerability in Apache Log4j2 affecting versions 2.0-beta9 through 2.15.0 (excluding certain security releases). The fictional inventory contains Apache Log4j 2.14.1, which is within the affected range.",
+        "evidence_ids": [
+          "E002"
+        ],
+        "field_refs": [
+          {
+            "evidence_id": "E002",
+            "field_path": "/descriptions/0"
+          }
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "cve_id": "CVE-2021-44228",
+        "rank": 1,
+        "priority": "high",
+        "rationale": "The asset uses Log4j 2.14.1, an affected version per the CVE record. The KEV entry mandates remediation via updates or removal, and the EPSS score indicates a very high likelihood of exploitation.",
+        "evidence_ids": [
+          "E002",
+          "E003",
+          "E004",
+          "E005"
+        ],
+        "recommended_actions": [
+          {
+            "text": "Verify the current vendor guidance for Log4j 2.14.1 and apply the latest available patch or upgrade to a fixed version if one exists.",
+            "applies_when": "Confirm that the asset is running Log4j 2.14.1 and that the configuration allows JNDI lookup substitution.",
+            "support": [
+              {
+                "evidence_id": "E002",
+                "field_path": "/affected/0/versions/0"
+              },
+              {
+                "evidence_id": "E003",
+                "field_path": "/results/0/entry/requiredAction"
+              }
+            ]
+          },
+          {
+            "text": "If no patch is available, consider disabling JNDI lookup substitution or applying temporary mitigations as recommended by CISA until a patch is released.",
+            "applies_when": "No patch is available for the current version and the asset remains reachable.",
+            "support": [
+              {
+                "evidence_id": "E003",
+                "field_path": "/results/0/entry/requiredAction"
+              }
+            ]
+          }
+        ],
+        "uncertainties": [
+          "Applicability is unverified without a direct version match in the vendor advisory; the assessment indicates the need for configuration verification."
+        ]
+      }
+    ],
+    "limitations": [
+      "The CVE record does not list a fixed version for 2.14.1; therefore, the recommendation to upgrade cannot specify a target version. The assessment is based on inventory data and does not confirm network reachability or configuration details."
+    ]
+  }
+}
