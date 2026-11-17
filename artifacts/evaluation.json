@@ -1,0 +1,201 @@
+{
+  "scope": "Selected engineering demonstrations; not an unbiased reliability benchmark",
+  "selected_runs": [
+    {
+      "run_id": "v02-reviewed",
+      "status": "complete",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "plan_before_tools": true,
+      "source_review_accepted": true,
+      "tool_names": [
+        "assess_assets",
+        "get_cve_record",
+        "get_epss",
+        "get_vendor_advisory",
+        "lookup_kev",
+        "read_context_file"
+      ],
+      "llm_calls": 11,
+      "total_tokens": 41636,
+      "tool_calls": 6,
+      "tool_failures": 0,
+      "elapsed_seconds": 401.88,
+      "fault_injected": false,
+      "asset_statuses": {
+        "vpn-primary": "potentially_affected",
+        "vpn-patched": "not_affected_by_version",
+        "vpn-unknown": "unverified"
+      }
+    },
+    {
+      "run_id": "v02-recovery-final",
+      "status": "complete",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "plan_before_tools": true,
+      "source_review_accepted": true,
+      "tool_names": [
+        "get_cve_record",
+        "get_epss",
+        "get_vendor_advisory",
+        "lookup_kev"
+      ],
+      "llm_calls": 9,
+      "total_tokens": 27500,
+      "tool_calls": 5,
+      "tool_failures": 1,
+      "elapsed_seconds": 271.12,
+      "fault_injected": true
+    },
+    {
+      "run_id": "v02-partial-final",
+      "status": "partial",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "plan_before_tools": true,
+      "source_review_accepted": true,
+      "tool_names": [
+        "get_epss",
+        "lookup_kev"
+      ],
+      "llm_calls": 8,
+      "total_tokens": 14304,
+      "tool_calls": 4,
+      "tool_failures": 2,
+      "elapsed_seconds": 182.22,
+      "fault_injected": false
+    }
+  ],
+  "all_retained_agent_attempts": [
+    {
+      "run_id": "final-normal",
+      "status": "complete",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "final-partial",
+      "status": "partial",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "final-recovery",
+      "status": "partial",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "run-normal",
+      "status": "failed",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "run-normal-final",
+      "status": "complete",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "run-normal-v2",
+      "status": "complete",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "run-recovery",
+      "status": "complete",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "run-recovery-final",
+      "status": "complete",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "v02-final",
+      "status": "complete",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "selected": false
+    },
+    {
+      "run_id": "v02-integrated",
+      "status": "failed",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "selected": false
+    },
+    {
+      "run_id": "v02-partial-final",
+      "status": "partial",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "selected": true
+    },
+    {
+      "run_id": "v02-pilot",
+      "status": "failed",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "v02-recovery",
+      "status": "failed",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "selected": false
+    },
+    {
+      "run_id": "v02-recovery-final",
+      "status": "complete",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "selected": true
+    },
+    {
+      "run_id": "v02-reviewed",
+      "status": "complete",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "selected": true
+    },
+    {
+      "run_id": "v02-verified",
+      "status": "failed",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    },
+    {
+      "run_id": "v02-workbench",
+      "status": "failed",
+      "schema_version": "0.2",
+      "model": "openai/gpt-oss-20b",
+      "selected": false
+    },
+    {
+      "run_id": "validated-normal",
+      "status": "failed",
+      "schema_version": "0.1",
+      "model": "openai/gpt-oss-120b",
+      "selected": false
+    }
+  ],
+  "visual_verification": "Blocked: Computer Use could not establish the active Windows browser URL confidently",
+  "local_api_tests": "See tests/test-results.txt; loopback-enabled test run",
+  "source_limitations": "See docs/source-review.md and docs/upgrades.md"
+}

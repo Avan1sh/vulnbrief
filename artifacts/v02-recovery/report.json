@@ -1,0 +1,24 @@
+{
+  "run_id": "v02-recovery",
+  "created_at": "2026-11-17T11:19:19.095217+00:00",
+  "goal": "Investigate CVE-2024-3400 using live CVE, KEV, EPSS and supported vendor guidance. Recover from failed requests, distinguish ERR errors from successful E evidence, and produce two conditional actions with exact supporting source fields. Use the exact version_citations for any named version. No asset inventory was supplied.",
+  "model": "openai/gpt-oss-20b",
+  "status": "failed",
+  "plan": null,
+  "analysis": null,
+  "stop_reason": "LLM provider returned HTTP 400 (tool_use_failed); check account, model and quota",
+  "evidence": [],
+  "schema_version": "0.2",
+  "source_facts": {},
+  "tool_errors": [],
+  "asset_assessments": [],
+  "errors": [],
+  "metrics": {
+    "llm_calls": 2,
+    "total_tokens": 0,
+    "tool_calls": 0,
+    "tool_failures": 0,
+    "elapsed_seconds": 25.72,
+    "fault_injected": false
+  }
+}

@@ -1,0 +1,59 @@
+# VulnBrief execution transcript
+
+Generated from actual runtime events.
+
+## 1. run_started (2026-11-17T11:18:53.382256+00:00)
+
+```json
+{
+  "sequence": 1,
+  "time": "2026-11-17T11:18:53.382256+00:00",
+  "event": "run_started",
+  "goal": "Investigate CVE-2024-3400 using live CVE, KEV, EPSS and supported vendor guidance. Recover from failed requests, distinguish ERR errors from successful E evidence, and produce two conditional actions with exact supporting source fields. Use the exact version_citations for any named version. No asset inventory was supplied.",
+  "model": "openai/gpt-oss-20b",
+  "context_selected": false,
+  "fault_mode": "cve-primary-timeout-once"
+}
+```
+
+## 2. provider_schema_retry (2026-11-17T11:18:54.113880+00:00)
+
+```json
+{
+  "sequence": 2,
+  "time": "2026-11-17T11:18:54.113880+00:00",
+  "event": "provider_schema_retry",
+  "code": "tool_use_failed",
+  "attempt": 1
+}
+```
+
+## 3. stop (2026-11-17T11:19:19.093219+00:00)
+
+```json
+{
+  "sequence": 3,
+  "time": "2026-11-17T11:19:19.093219+00:00",
+  "event": "stop",
+  "reason": "LLM provider returned HTTP 400 (tool_use_failed); check account, model and quota"
+}
+```
+
+## 4. run_finished (2026-11-17T11:19:19.096217+00:00)
+
+```json
+{
+  "sequence": 4,
+  "time": "2026-11-17T11:19:19.096217+00:00",
+  "event": "run_finished",
+  "status": "failed",
+  "metrics": {
+    "llm_calls": 2,
+    "total_tokens": 0,
+    "tool_calls": 0,
+    "tool_failures": 0,
+    "elapsed_seconds": 25.72,
+    "fault_injected": false
+  }
+}
+```

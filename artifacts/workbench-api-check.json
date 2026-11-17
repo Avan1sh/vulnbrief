@@ -1,0 +1,10 @@
+{
+  "version": "0.2.0",
+  "api_config_status": "200; credential presence only, no key returned",
+  "csv_exports_field_references": true,
+  "csv_exports_source_links": true,
+  "saved_upgraded_report_visible": true,
+  "comparison_includes_asset_observation_gaps": true,
+  "task_count": 10,
+  "visual_browser_check": "not completed; policy blocked active URL identification"
+}

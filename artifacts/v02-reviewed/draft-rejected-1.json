@@ -1,0 +1,82 @@
+{
+  "accepted": false,
+  "issues": [
+    "CVE-2024-3400: action source fields not found or unrelated: ['E002:/product_status/2/affected']; cite fields directly inside evidence.data, without a /data prefix, and state prerequisites"
+  ],
+  "draft": {
+    "status": "complete",
+    "summary": [
+      {
+        "text": "CVE-2024-3400 is a critical command injection vulnerability affecting PAN-OS GlobalProtect feature in specific versions.",
+        "evidence_ids": [
+          "E002",
+          "E005"
+        ],
+        "field_refs": [
+          {
+            "evidence_id": "E002",
+            "field_path": "/descriptions/0"
+          },
+          {
+            "evidence_id": "E005",
+            "field_path": "/solution_excerpt"
+          }
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "cve_id": "CVE-2024-3400",
+        "rank": 1,
+        "priority": "high",
+        "rationale": "The vulnerability is rated CRITICAL (CVSS 10) and is listed as known exploited by CISA. PAN-OS versions 11.0.0 through 11.0.4-h1 are affected, while 11.0.4-h1 and later are fixed.",
+        "evidence_ids": [
+          "E002",
+          "E005",
+          "E003",
+          "E004"
+        ],
+        "recommended_actions": [
+          {
+            "text": "Upgrade the PAN-OS device to version 11.0.4-h1 or later to eliminate the vulnerability.",
+            "applies_when": "Verify that the device is running PAN-OS 11.0.4 or earlier and that the GlobalProtect feature is enabled.",
+            "support": [
+              {
+                "evidence_id": "E005",
+                "field_path": "/fixed_version_candidates/1"
+              },
+              {
+                "evidence_id": "E002",
+                "field_path": "/product_status/2/affected"
+              },
+              {
+                "evidence_id": "E003",
+                "field_path": "/results/0/entry/requiredAction"
+              }
+            ]
+          },
+          {
+            "text": "If an upgrade is not immediately possible, verify that the GlobalProtect configuration meets the vendor\u2019s mitigations and enable Threat Prevention IDs as recommended.",
+            "applies_when": "Confirm that the device configuration matches the vendor\u2019s mitigated configuration prerequisites.",
+            "support": [
+              {
+                "evidence_id": "E003",
+                "field_path": "/results/0/entry/requiredAction"
+              },
+              {
+                "evidence_id": "E005",
+                "field_path": "/solution_excerpt"
+              }
+            ]
+          }
+        ],
+        "uncertainties": [
+          "The exact configuration prerequisites for mitigations are not detailed in the available evidence; further verification is required."
+        ]
+      }
+    ],
+    "limitations": [
+      "The assessment is based on the supplied inventory and vendor advisory; actual device configuration and patch status may differ."
+    ]
+  }
+}

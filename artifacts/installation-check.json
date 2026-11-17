@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "environment": "Separate installed-wheel verification environment",
+  "source_matches": {
+    "agent.py": true,
+    "cli.py": true,
+    "history.py": true,
+    "inventory.py": true,
+    "llm.py": true,
+    "models.py": true,
+    "report.py": true,
+    "server.py": true,
+    "tools.py": true,
+    "trace.py": true,
+    "vendor.py": true,
+    "__init__.py": true,
+    "__main__.py": true,
+    "web\\app.js": true,
+    "web\\index.html": true,
+    "web\\style.css": true
+  },
+  "pip_check": "passed",
+  "browser_visual_verification": "blocked by Computer Use active-URL confidence policy"
+}
