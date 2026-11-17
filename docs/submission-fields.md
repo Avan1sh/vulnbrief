@@ -10,13 +10,13 @@ Review these against the actual form before submitting. This guide does not subm
 
 **Architecture upload:** `docs/architecture.png`.
 
-**Sample transcripts/logs:** `artifacts/sample-runs.md` combines the selected actual runs. Individual raw events, transcripts and reports are retained in the corresponding artifact directories. Earlier development runs are labeled separately in the evaluation summary.
+**Sample transcripts/logs:** `artifacts/sample-runs.md` combines the selected actual runs. Individual raw events, transcripts and reports are retained in the corresponding artifact directories. v0.3 adds repeated trials in `artifacts/evaluation-v03/` and separately recorded post-fix trials in `artifacts/evaluation-v03-followup/`; failures are disclosed in `docs/evaluation-findings-v03.md`.
 
 **Design write-up:** `docs/design-writeup.pdf` (one page), with matching text source.
 
 **Source:** GitHub repository: https://github.com/Avan1sh/vulnbrief. Use the public repository link in the code-link field once publication is verified. The release source ZIP provides the same source, documentation, tests and demonstration evidence without credentials or local runtime state.
 
-**Synthetic/test traces and labels:** `examples/scenarios.json` describes the self-authored goals, synthetic context, injected fault and expected observable behavior. The corresponding actual execution events are under `artifacts/`. Labels concern engineering behavior, not a trained detector's ground-truth malicious/benign classes.
+**Synthetic/test traces and labels:** `examples/scenarios.json` and `examples/evaluation-suite.json` describe self-authored goals, synthetic context, faults and expected observable behavior. Actual execution events are under `artifacts/`. Eight evaluation cases are defined; only executed trials count. Labels concern engineering behavior, not a trained detector's malicious/benign ground truth.
 
 **Monitoring report:** If optional for this Engineer track, leave it empty. If a response is required, attach `artifacts/evaluation-summary.md` as engineering telemetry and explain that a separate monitoring/detection agent was not the assigned project.
 

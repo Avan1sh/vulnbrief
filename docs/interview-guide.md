@@ -1,10 +1,26 @@
 # Explaining VulnBrief
 
+## v0.3 reviewer and evaluation additions
+
+Use the recorded-run cards and guided tour to demonstrate actual prior executions
+without spending API quota. Open a citation in the inspector and distinguish the
+selected claim, exact source value, source date and retrieval time. Explain why
+missing KEV evidence shows Unknown and why a valid pointer is not semantic proof.
+
+The repeated evaluation retains six original trials and two separately recorded
+follow-ups. Two original trials are scope guards with zero LLM requests. Read
+`evaluation-findings-v03.md`: skipped inventory, a plan-schema error and an unsafe
+fixed-version inference motivated bounded corrections and stricter validation.
+The follow-ups inspected inventory but one failed citation validation and the
+other exhausted free quota. Do not describe those as successful reports or claim
+an overall model reliability percentage. Describe what was learned and what still
+needs independent validation.
+
 ## v0.2 additions to demonstrate
 
 Open the local workbench with `python -m vulnbrief serve`. Load the fictional CSV and show its three version outcomes. Open a recommendation's exact source field and distinguish source-assigned CVSS from the model's priority. Explain why version arithmetic is an execution tool, while investigation order and advice come from the LLM. Show local task review/export, then compare saved observations. Clarify that draft acceptance executes no system change, and edit-and-rerun starts a fresh investigation rather than resuming an LLM checkpoint.
 
-The new ERR identifiers prevent request failures from being confused with successful E evidence. Source-field existence and concrete version matching are deterministic checks, while model review remains fallible. The vendor pilot supports PAN-OS only. Browser visual verification was blocked by Computer Use's active-URL check; do not claim that visual test was completed.
+The ERR identifiers prevent request failures from being confused with successful E evidence. Source-field existence and concrete version matching are deterministic checks, while model review remains fallible. The vendor pilot supports PAN-OS only. The v0.2 Computer Use check was blocked; v0.3 subsequently completed isolated Chromium checks and screenshot inspection, with the limits recorded in verification-v03.md.
 
 ## 60-second introduction
 

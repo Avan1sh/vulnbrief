@@ -1,5 +1,11 @@
 # Source-support review and limits
 
+v0.3 presentation note: reports retain schema 0.2 and their original model text.
+The new inspector exposes exact cited values without rewriting those claims.
+Current browser checks and repeated trials are recorded in `verification-v03.md`
+and `artifacts/evaluation-v03/summary.md`; historical findings below remain dated
+development observations.
+
 Version note: the baseline findings below refer to retained v0.1 attempts. v0.2 adds separate ERR IDs, exact source-field action references, version-claim value matching, current vendor guidance and an independent arithmetic asset comparison. The latest upgraded runs are labeled in the evaluation summary. These controls improve inspectability but do not prove every natural-language inference.
 
 This records the review method and development findings, not a claim that every sentence has been proven correct.

@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.3.0 - 2026-11-17
+
+### Added
+
+- Dated recorded-run cards and an accessible six-step reviewer tour that starts no
+  LLM calls; new live investigations remain explicitly separate.
+- A read-only exact-field citation inspector with source dates, original values,
+  linked report claims, keyboard focus return and visible null observations.
+- Filterable history, selected-run task views, observed execution phases and
+  desktop/tablet/phone refinements.
+- Eight presentation regressions and nine Playwright/axe browser checks, with a
+  dedicated browser CI job and genuine screenshots/video.
+- An eight-case live evaluation harness with bounded repeated trials, actual
+  source/model calls, runtime fingerprints and unedited failed outcomes.
+
+### Fixed
+
+- Missing or conflicting KEV evidence shows Unknown instead of a zero count.
+- Windows serves JavaScript modules with the required MIME type; table headings
+  meet the automated contrast checks on the tested pages.
+- Initial plan-schema failures receive one bounded correction. A selected but
+  unread/unassessed inventory prevents complete report status.
+- Common named upgrade/install targets require exact current vendor candidate
+  citations rather than inference from an affected-version description.
+
+### Verification and limits
+
+57 Python/API tests, eight presentation tests and nine Chromium browser checks
+passed locally. Real UI screenshots and video frames were inspected. Repeated
+live trials exposed model/tool-use and citation failures; see
+[the findings](docs/evaluation-findings-v03.md). Automated accessibility checks,
+structural validation and LLM review do not prove full accessibility, semantic
+accuracy or production readiness. The source ZIP excludes the large video, which
+is distributed as a separate release asset.
+
 ## 0.2.0 — 2026-11-17
 
 ### Added

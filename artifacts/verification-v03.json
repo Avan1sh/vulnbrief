@@ -18,6 +18,14 @@
   "screenshots_visually_inspected": true,
   "demo": "Actual silent 90-second browser walkthrough; no new LLM runs",
   "pdf_writeup": "One A4 page, rendered and visually inspected",
-  "live_evaluation": "artifacts/evaluation-v03/summary.md",
-  "limits": "docs/verification-v03.md"
+  "live_evaluation": {
+    "original": "artifacts/evaluation-v03/summary.md",
+    "follow_up": "artifacts/evaluation-v03-followup/summary.md",
+    "executed_llm_trials": 6,
+    "executed_scope_guards_without_llm": 2,
+    "findings": "docs/evaluation-findings-v03.md",
+    "daily_free_quota_observed_during_follow_up": true
+  },
+  "limits": "docs/verification-v03.md",
+  "installed_wheel_record": "artifacts/installation-check-v03.json"
 }

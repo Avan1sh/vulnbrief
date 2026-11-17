@@ -6,10 +6,11 @@ BASE = Path(__file__).resolve().parents[1]
 ROOT_FILES = {"README.md", "pyproject.toml", "requirements-lock.txt", ".gitignore", ".gitattributes",
               ".env.example", "CHANGELOG.md", "CONTRIBUTING.md", "SECURITY.md"}
 ALLOWED = {
-    "src": {".py", ".html", ".css", ".js"}, "tests": {".py", ".txt"}, "examples": {".json", ".md", ".csv"},
+    "src": {".py", ".html", ".css", ".js", ".mjs"}, "tests": {".py", ".txt"}, "examples": {".json", ".md", ".csv"},
     "docs": {".md", ".txt", ".mmd", ".png", ".pdf"},
     "artifacts": {".md", ".json", ".jsonl"}, "scripts": {".py"},
     ".github": {".md", ".yml"},
+    "ui-tests": {".mjs", ".json", ".md"},
 }
 
 
@@ -18,7 +19,7 @@ def package(destination: Path):
     paths = [BASE / name for name in sorted(ROOT_FILES)]
     for folder, suffixes in ALLOWED.items():
         paths.extend(p for p in (BASE / folder).rglob("*") if p.is_file()
-                     and p.suffix in suffixes and "__pycache__" not in p.parts)
+                     and p.suffix in suffixes and not set(p.parts)&{'__pycache__','node_modules','test-results','playwright-report'})
     with zipfile.ZipFile(destination, "w", zipfile.ZIP_DEFLATED) as archive:
         for p in paths:
             if p.exists():
@@ -32,4 +33,4 @@ def package(destination: Path):
 
 
 if __name__ == "__main__":
-    package(BASE.parent / "output" / "vulnbrief-v02-submission.zip")
+    package(BASE.parent / "output" / "vulnbrief-v03-submission.zip")

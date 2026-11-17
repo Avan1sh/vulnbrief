@@ -1,6 +1,6 @@
 # Security scope
 
-VulnBrief 0.2 is a single-user localhost prototype. It has no enterprise identity,
+VulnBrief 0.3 is a single-user localhost prototype. It has no enterprise identity,
 tenant separation, or production hardening. Keep it bound to `127.0.0.1`; do not
 publish the server through a tunnel or expose it as a shared service.
 

@@ -1,14 +1,20 @@
-# VulnBrief v0.2
+# VulnBrief v0.3
 
 [![CI](https://github.com/Avan1sh/vulnbrief/actions/workflows/ci.yml/badge.svg)](https://github.com/Avan1sh/vulnbrief/actions/workflows/ci.yml)
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB)
-![Release 0.2.0](https://img.shields.io/badge/Release-0.2.0-68794E)
+![Release 0.3.0](https://img.shields.io/badge/Release-0.3.0-68794E)
 
 A single LLM agent that investigates a small CVE watchlist, chooses live tools, revises its actions after failures, and produces an evidence-linked prioritization report.
 
 The upgraded local workbench adds asset/version checks, current vendor guidance, field-level recommendation citations, reviewable task drafts, persistent investigation history, and snapshot comparisons. Version applicability is a deliberately narrow PAN-OS pilot; unsupported cases remain unverified.
 
 The model makes the plan, tool selections, priorities and recommendations. Python validates inputs, executes read-only tools, records evidence and bounds the run. No stored answers, canned report mode, severity-to-priority lookup table, or copied public agent implementation is used.
+
+![Actual VulnBrief workbench showing three recorded investigations and a selected asset analysis](docs/screenshots/workbench.png)
+
+[Watch the actual 90-second walkthrough](https://github.com/Avan1sh/vulnbrief/releases/download/v0.3.0/vulnbrief-demo.webm) · [Inspect a cited source value](docs/screenshots/evidence-inspector.png) · [Phone layout](docs/screenshots/mobile.png)
+
+The silent video shows the real local application opening recorded LLM/source runs. It makes no new LLM requests and is labeled accordingly. Video is distributed separately as a release asset to keep the assessment source ZIP below 10 MB.
 
 ## Review the project
 
@@ -64,9 +70,13 @@ If the default model's quota is unavailable, set `VULNBRIEF_MODEL=openai/gpt-oss
 
 Open [the local dashboard](http://127.0.0.1:8787). It provides goal entry, CSV/JSON inventory selection, model selection, live execution events, findings, asset assessments, expandable source observations, artifact downloads, task review/export, and two-run comparisons. It uses FastAPI with a small HTML/CSS/JavaScript frontend, without a Node build step. Binding is restricted to localhost. This is a single-user prototype; do not expose it as a public service.
 
+Start with **Asset investigation**, **Failure recovery**, or **Missing information**. Each opens an explicitly dated original run without using a key. The six-step **guided tour** visits the version outcomes, an exact citation, the injected timeout, unknown information, task drafts, and live-input controls. It never starts a new investigation. The default selection is the successful asset demonstration; all development failures remain in the filterable history.
+
+Click a citation to open the evidence inspector. It places the selected claim beside the original source field, source URL, retrieval timestamp and source date; missing null values stay visible. Escape closes the dialog and returns keyboard focus. The KEV summary distinguishes retrieved catalog absence from missing or conflicting observations. Tabs support arrow keys, and drafts show the selected investigation unless **Show all investigations** is enabled.
+
 Use **Use fictional example** to load `examples/asset_inventory.csv`. That inventory includes a potentially affected version, a version matching the vendor's unaffected range, and a missing version. No real asset is scanned. Inventory context is included in requests to the configured LLM; use synthetic/non-sensitive inputs for the assessment.
 
-One worker executes investigations sequentially, with at most three queued/running jobs. Credentials stay server-side and are not returned by the API. Cross-origin mutation requests are rejected. Model/source text is rendered as text rather than executable HTML. Browser visual verification was blocked by the Computer Use URL-confidence check; API tests, HTML/JS reference checks, and JavaScript syntax checks are recorded separately.
+One worker executes investigations sequentially, with at most three queued/running jobs. Credentials stay server-side and are not returned by the API. Cross-origin mutation requests are rejected. Model/source text is rendered as text rather than executable HTML. v0.3 adds isolated Chromium checks at 1440, 768 and 390 pixels, automated accessibility scans, keyboard/modal checks and inspected real screenshots. These checks do not constitute full accessibility certification or cross-browser coverage. See the [verification record](docs/verification-v03.md).
 
 ## Asset assessment and current advisories
 
@@ -159,6 +169,8 @@ Specify up to three CVEs in the goal, the context file, or both. Context format:
 - Failed requests have a separate `ERR...` namespace with tool arguments, code and time; errors never consume or invalidate successful `E...` evidence IDs.
 - Summaries and recommended actions cite JSON-pointer paths directly inside `evidence.data`. References are checked for existence and CVE/asset-row scope. Action prerequisites are required. Valid pointers make support inspectable; they are not a semantic proof.
 - If an action names a concrete version, the same version must occur in its cited source values. Runtime-generated `version_citations` help prevent selecting a neighboring fixed-version entry. This check does not prove every natural-language inference or version-range statement.
+- An additional guard checks common upgrade/install wording: a named target must cite its exact current vendor `fixed_version_candidates` entry. An affected-version description cannot supply that proof. This lexical check is deliberately narrow; it is not a complete natural-language verifier.
+- A selected inventory that was not read and assessed prevents complete status. Plan JSON gets at most one schema correction before data tools; provider failures still stop explicitly. The model chooses its tools and next actions.
 - Source-assigned CVSS values are attached directly by the runtime and displayed separately from the LLM's priority judgment. Missing source severity is not filled with an invented metric.
 - Failed KEV retrieval is unknown, not absence. Catalog absence does not prove no exploitation.
 - Missing EPSS remains null. EPSS is general exploitation likelihood over the next 30 days, not the probability a particular asset will be compromised.
@@ -186,7 +198,21 @@ Upgrade regressions also cover hotfix boundaries, unsupported branches, CSV pars
 
 Real sample runs and actual metrics are in [sample runs](artifacts/sample-runs.md) and [evaluation summary](artifacts/evaluation-summary.md). Raw events and the full structured source observations are included alongside each report. These artifacts are examples, not the source of runtime responses. A three-run sample cannot establish production reliability or classifier precision/recall.
 
-The unit/API suite needs no API key. [GitHub Actions](https://github.com/Avan1sh/vulnbrief/actions) runs those checks on Ubuntu with Python 3.10/3.12 and Windows with Python 3.10, checks frontend syntax/publication hygiene, and builds a wheel. Live LLM runs remain separate. See [contributing](CONTRIBUTING.md), [security scope](SECURITY.md), and [changelog](CHANGELOG.md).
+The unit/API suite needs no API key. [GitHub Actions](https://github.com/Avan1sh/vulnbrief/actions) runs those checks on Ubuntu with Python 3.10/3.12 and Windows with Python 3.10, checks presentation logic/publication hygiene, and builds a wheel. A separate Ubuntu job exercises the actual reviewer flow and automated accessibility checks in Chromium. Live LLM evaluation remains separate. See [contributing](CONTRIBUTING.md), [security scope](SECURITY.md), and [changelog](CHANGELOG.md).
+
+## Repeated-trial agent evaluation
+
+[Eight self-authored cases](examples/evaluation-suite.json) define observable expectations for missing records, unsupported vendors, version boundaries, timeout recovery, unknown versions, context injection, mixed watchlists and scope limits. They prescribe neither a fixed tool sequence nor a fixed priority/answer. The [executed v0.3 batch](artifacts/evaluation-v03/summary.md) records each actual trial, checks, model, runtime fingerprint, bounds, tokens and latency. Defined cases that were not executed are not counted as successful tests.
+
+```powershell
+.\.venv\Scripts\python.exe scripts/evaluate_agent.py --cases missing_record,unsupported_vendor,scope_guard --trials 2 --max-total-tokens 80000 --output artifacts/my-new-evaluation
+```
+
+This uses real Groq requests and live public sources; configure your own key and use a **new** output directory. The token limit is checked between trials and may be exceeded by the last trial. Each trial is additionally bounded to eight decision rounds, twelve data-tool attempts and 480 seconds by default. Daily quota exhaustion stops the batch explicitly. No source responses or LLM outputs are mocked or replayed by this harness. Unit tests separately verify the grading logic with synthetic events.
+
+The checks grade scope, references, required tool coverage, unknown-value preservation, accepted review and the observed recovery sequence as applicable. They do not establish that every natural-language claim is true. No semantic claim-accuracy score, classifier precision/recall or production reliability estimate is fabricated. Failed runs and unexecuted planned trials stay visible in the summary.
+
+The first batch exposed skipped inventory, a plan-schema failure and an unsupported fixed-version inference. [Findings and the resulting fixes](docs/evaluation-findings-v03.md) link the original failures and separately fingerprinted follow-up trials. The model can still fail citation validation; such runs are retained as failures rather than silently published as accepted reports.
 
 ## Code map
 

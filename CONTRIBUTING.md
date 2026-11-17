@@ -26,6 +26,18 @@ is not an exhaustive secret scanner.
 CI runs the suite and builds a wheel on Ubuntu with Python 3.10/3.12 and Windows
 with Python 3.10. Live demonstrations are reviewed separately from those checks.
 
+The `ui-tests/` development package adds Playwright and axe checks. With Node 24+
+and the Python virtual environment activated, run `npm ci`,
+`npx playwright install chromium`, then `npm test` from that folder.
+The config starts a local server when needed. `npm run test:logic` exercises the
+pure presentation calculations. `npm run capture` records real screenshots and a
+silent tour; its large video is a release asset excluded from the source ZIP.
+
+The live evaluation harness is opt-in: `python scripts/evaluate_agent.py --help`.
+It uses your configured free API quota, preserves actual failures, and does not
+run during CI. Define expectations before observing results and report only the
+cases/trials actually executed.
+
 ## Evidence changes
 
 Add meaningful regression coverage when changing evidence scope, version

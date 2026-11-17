@@ -73,7 +73,7 @@ def architecture():
         "All stages emit local JSONL events and a readable transcript. Private reasoning is not stored.",
         "SQLite retains runs and reviewable task drafts; the dashboard compares saved source observations."]):
         c.drawString(55,181-i*22,line)
-    c.setFont("Helvetica",9); c.drawString(55,52,"VulnBrief v0.2 | FastAPI workbench + LangGraph + Groq SDK + HTTPX + Pydantic + SQLite | Local, single-user prototype")
+    c.setFont("Helvetica",9); c.drawString(55,52,"VulnBrief v0.3 | FastAPI workbench + LangGraph + Groq SDK + HTTPX + Pydantic + SQLite | Local, single-user prototype")
     c.save()
 
 
