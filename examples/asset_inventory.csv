@@ -1,0 +1,4 @@
+label,cve_id,product,product_version,exposure,business_importance,owner,origin,notes
+vpn-primary,CVE-2024-3400,PAN-OS,11.0.4,Internet-facing,High,Infrastructure,synthetic,Fictional inventory; not real scan findings
+vpn-patched,CVE-2024-3400,PAN-OS,11.0.4-h1,Internet-facing,High,Infrastructure,synthetic,Fictional inventory; not real scan findings
+vpn-unknown,CVE-2024-3400,PAN-OS,,Internal,Medium,Infrastructure,synthetic,Fictional inventory; not real scan findings

@@ -1,0 +1,20 @@
+{
+  "origin": "synthetic",
+  "notes": "Fictional assessment watchlist, not a scanner finding. Product versions and configuration are intentionally unknown. No real customer data.",
+  "assets": [
+    {
+      "label": "edge-access",
+      "cve_id": "CVE-2024-3400",
+      "exposure": "Internet-facing remote access service",
+      "business_importance": "High: staff use it for access to internal business systems",
+      "product_version": null
+    },
+    {
+      "label": "file-transfer",
+      "cve_id": "CVE-2023-34362",
+      "exposure": "Internet-facing file-transfer service",
+      "business_importance": "High: exchanges business documents",
+      "product_version": null
+    }
+  ]
+}
